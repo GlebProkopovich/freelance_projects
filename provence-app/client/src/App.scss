@@ -1,0 +1,12 @@
+header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #fff;
+  border-bottom: solid 0.5px rgb(211, 211, 211);
+}
+
+main {
+  flex-grow: 1;
+  background: rgb(243, 243, 243);
+}

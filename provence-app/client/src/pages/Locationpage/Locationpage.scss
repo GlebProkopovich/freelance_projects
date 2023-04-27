@@ -1,0 +1,42 @@
+.map-container {
+  height: 550px;
+  background-image: url(../../images/main-bg.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .map-subcontainer {
+    width: 1200px;
+    position: relative;
+    margin: 0 auto;
+
+    h2 {
+      height: 100px;
+      line-height: 100px;
+      font-size: 25px;
+      font-weight: 400;
+      text-align: center;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .leaflet-container {
+      width: 600px;
+      height: 350px;
+      left: 300px;
+      top: 95px;
+      border-radius: 10px;
+      position: absolute;
+      z-index: 0;
+    }
+
+    h4 {
+      height: 60px;
+      line-height: 60px;
+      font-size: 15px;
+      font-weight: 400;
+      text-align: center;
+      color: #fff;
+      margin-top: 350px;
+    }
+  }
+}
