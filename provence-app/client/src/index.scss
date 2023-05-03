@@ -14,11 +14,17 @@ html {
 
   body {
     height: 100%;
+    overflow-y: auto;
 
     #root {
       min-height: 100%;
       display: flex;
       flex-direction: column;
     }
+  }
+
+  .no-scroll {
+    overflow-y: hidden;
+    padding-right: 15px;
   }
 }

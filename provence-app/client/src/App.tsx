@@ -1,19 +1,33 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Aboutpage from './pages/Aboutpage/Aboutpage';
 import Homepage from './pages/Homepage/Homepage';
 import Locationspage from './pages/Locationpage/Locationspage';
 import Menupage from './pages/Menupage/Menupage';
 import Navbar from './components/Navbar/Navbar';
 import ContactInfo from './components/ContactInfo/ContactInfo';
-import Menubar from './components/Menubar/Menubar';
+import { useState, useEffect } from 'react';
+import { IModal } from './types';
+import { useSelector } from 'react-redux';
 import './App.scss';
+import Login from './components/Login/Login';
 
 function App() {
+  const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const isLoginOpened = useSelector((state: IModal) => state.modal.isOpened);
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/menu')) {
+      setIsMenuOpen(true);
+    } else {
+      setIsMenuOpen(false);
+    }
+  }, [location]);
+
   return (
     <>
-      <header>
+      <header className={isMenuOpen ? 'header-static' : 'header-sticky'}>
         <Navbar />
-        <Menubar />
       </header>
       <main>
         <Routes>
@@ -42,6 +56,7 @@ function App() {
           <Route path="about" element={<Aboutpage />} />
           <Route path="*" element={<Homepage />} />
         </Routes>
+        {isLoginOpened && <Login />}
       </main>
       <footer>
         <ContactInfo />
