@@ -1,4 +1,4 @@
-import { FocusEvent, ChangeEvent, FC, useState } from 'react';
+import { FocusEvent, ChangeEvent, FC, useState, FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { actionCreators } from '../../state';
 import './Login.scss';
@@ -17,7 +17,7 @@ const Login: FC = () => {
 
   const dispatch = useDispatch();
 
-  const { setModalOpened } = actionCreators;
+  const { setLoginOpened, setRegistrationOpened, loginUser } = actionCreators;
 
   const handleEmailValue = (e: ChangeEvent<HTMLInputElement>): void => {
     setEmailValue(e.target.value);
@@ -47,12 +47,17 @@ const Login: FC = () => {
     }
   };
 
+  const handleClickOnSignUp = (): void => {
+    dispatch(setRegistrationOpened());
+    dispatch(setLoginOpened());
+  };
+
   const handleClickLoginOpen = (): void => {
-    dispatch(setModalOpened());
+    dispatch(setLoginOpened());
   };
 
   const handleClickOnCloseLogin = (): void => {
-    dispatch(setModalOpened());
+    dispatch(setLoginOpened());
   };
 
   const handleOnBlurEmail = (): void => {
@@ -74,14 +79,19 @@ const Login: FC = () => {
     }
   };
 
+  const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(loginUser(emailValue, passwordValue));
+  };
+
   return (
-    <div className="modal-container" onClick={handleClickLoginOpen}>
-      <div className="modal-subcontainer" onClick={(e) => e.stopPropagation()}>
-        <form onSubmit={(e) => e.preventDefault()}>
+    <div className="login-container" onClick={handleClickLoginOpen}>
+      <div className="login-subcontainer" onClick={(e) => e.stopPropagation()}>
+        <form onSubmit={handleSubmitForm}>
           <div className="email-container inputs">
             <label
               htmlFor="email"
-              className={`${isEmailFocused && 'label-focused'}`}
+              className={`${(isEmailFocused || emailValue) && 'label-focused'}`}
             >
               Email
             </label>
@@ -124,10 +134,12 @@ const Login: FC = () => {
               <div className="error">{passwordError}</div>
             )}
           </div>
-          <button className="signIn-btn">Sign In</button>
+          <button className="signIn-btn" type="submit">
+            Sign In
+          </button>
           <div className="signUp-container">
             <p>Don't have an account?</p>
-            <button>Sign Up</button>
+            <button onClick={handleClickOnSignUp}>Sign Up</button>
           </div>
         </form>
         <button>

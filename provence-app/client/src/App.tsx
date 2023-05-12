@@ -2,19 +2,25 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Aboutpage from './pages/Aboutpage/Aboutpage';
 import Homepage from './pages/Homepage/Homepage';
 import Locationspage from './pages/Locationpage/Locationspage';
-import Menupage from './pages/Menupage/Menupage';
 import Navbar from './components/Navbar/Navbar';
 import ContactInfo from './components/ContactInfo/ContactInfo';
 import { useState, useEffect } from 'react';
-import { IModal } from './types';
+import { ILogin, IRegistration } from './types';
 import { useSelector } from 'react-redux';
-import './App.scss';
 import Login from './components/Login/Login';
+import Registration from './components/Registration/Registration';
+import './App.scss';
+import Menupage from './pages/Menupage/Menupage';
 
 function App() {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const isLoginOpened = useSelector((state: IModal) => state.modal.isOpened);
+  const isLoginOpened = useSelector(
+    (state: ILogin) => state.loginForm.isOpened
+  );
+  const isRegistrationOpened = useSelector(
+    (state: IRegistration) => state.registrationForm.isOpened
+  );
 
   useEffect(() => {
     if (location.pathname.startsWith('/menu')) {
@@ -52,11 +58,12 @@ function App() {
               />
             }
           />
-          <Route path="menu" element={<Menupage />} />
+          <Route path="menu/:dishUrl" element={<Menupage />} />
           <Route path="about" element={<Aboutpage />} />
           <Route path="*" element={<Homepage />} />
         </Routes>
         {isLoginOpened && <Login />}
+        {isRegistrationOpened && <Registration />}
       </main>
       <footer>
         <ContactInfo />

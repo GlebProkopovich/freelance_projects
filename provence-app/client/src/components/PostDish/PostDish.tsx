@@ -1,14 +1,23 @@
 import React, { FC, useState } from 'react';
 import { IPostDish } from '../../types';
 import './PostDish.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators } from '../../state';
 
-const PostDish: FC<IPostDish> = ({ imgSrc, altImg, title, price }) => {
+const PostDish: FC<IPostDish> = ({ id, imgSrc, altImg, title, price }) => {
   const [isClickedOnThePrice, setIsClickedOnThePrice] =
     useState<boolean>(false);
 
   const handleClickOnThePrice = (): void => {
     setIsClickedOnThePrice(!isClickedOnThePrice);
   };
+
+  // const data = useSelector((state) => state);
+  // console.log(data);
+
+  const dispatch = useDispatch();
+
+  const { addToCart } = actionCreators;
 
   return (
     <div className="postdish-container">
@@ -17,7 +26,10 @@ const PostDish: FC<IPostDish> = ({ imgSrc, altImg, title, price }) => {
       </div>
       <h3>{title}</h3>
       {isClickedOnThePrice ? (
-        <button className="addToCart-btn">
+        <button
+          className="addToCart-btn"
+          onClick={() => dispatch(addToCart(id))}
+        >
           <p>Add to cart</p>
           <p>{price}</p>
         </button>

@@ -71,10 +71,6 @@
         }
       }
 
-      .active {
-        color: rgba(189, 0, 0, 0.949);
-      }
-
       .nav-link {
         width: 120px;
         text-align: center;
@@ -127,12 +123,12 @@
   }
 }
 
-.dropdownLocations-container {
+.dropdown-container {
   width: 160px;
   position: absolute;
   z-index: 2;
   top: 81px;
-  left: 410px;
+  left: 405px;
 
   ul {
     a {
@@ -160,6 +156,10 @@
           color: #323232;
         }
       }
+    }
+
+    a.active li {
+      color: rgba(189, 0, 0, 0.949);
     }
   }
 }

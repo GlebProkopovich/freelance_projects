@@ -1,34 +1,46 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import './Navbar.scss';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { IModal } from '../../types';
+import { ILogin } from '../../types';
 import { actionCreators } from '../../state';
+import './Navbar.scss';
 
 const Navbar: FC = () => {
-  const dispatch = useDispatch();
-
-  const [isOpenLocations, setIsOpenLocations] = useState<boolean>(false);
-  const [isOpenLanguages, setIsOpenLanguages] = useState<boolean>(false);
+  const [isOpenDropdownLocations, setIsOpenDropdownLocations] =
+    useState<boolean>(false);
+  const [isOpenDropdownLanguages, setIsOpenDropdownLanguages] =
+    useState<boolean>(false);
+  const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState<boolean>(false);
+  const [isOpenPageLocations, setIsOpenPageLocations] =
+    useState<boolean>(false);
+  const [isOpenPageMenu, setIsOpenPageMenu] = useState<boolean>(false);
   const dropdownMenuLocationsRef = useRef<HTMLDivElement>(null);
   const dropdownButtonLocationsRef = useRef<HTMLButtonElement>(null);
   const dropdownMenuLanguagesRef = useRef<HTMLDivElement>(null);
   const dropdownButtonLanguagesRef = useRef<HTMLButtonElement>(null);
+  const dropdownMenuRef = useRef<HTMLDivElement>(null);
+  const dropdownButtonMenuRef = useRef<HTMLButtonElement>(null);
 
-  const isLoginOpened = useSelector((state: IModal) => state.modal.isOpened);
+  const location = useLocation();
 
-  const { setModalOpened } = actionCreators;
+  const dispatch = useDispatch();
 
-  const handleClickLoginOpen = () => {
-    dispatch(setModalOpened());
+  const isLoginOpened = useSelector(
+    (state: ILogin) => state.loginForm.isOpened
+  );
+
+  const { setLoginOpened } = actionCreators;
+
+  const handleClickLoginOpen = (): void => {
+    dispatch(setLoginOpened());
   };
 
   const handleClickLocationsDropdown = (): void => {
-    setIsOpenLocations(!isOpenLocations);
+    setIsOpenDropdownLocations(!isOpenDropdownLocations);
   };
 
   const handleClickLanguagesDropdown = (): void => {
-    setIsOpenLanguages(!isOpenLanguages);
+    setIsOpenDropdownLanguages(!isOpenDropdownLanguages);
   };
 
   useEffect(() => {
@@ -38,7 +50,7 @@ const Navbar: FC = () => {
         !dropdownButtonLocationsRef.current?.contains(event.target as Node) &&
         !dropdownMenuLocationsRef.current.contains(event.target as Node)
       ) {
-        setIsOpenLocations(false);
+        setIsOpenDropdownLocations(false);
       }
     };
 
@@ -68,7 +80,7 @@ const Navbar: FC = () => {
         !dropdownButtonLanguagesRef.current?.contains(event.target as Node) &&
         !dropdownMenuLanguagesRef.current.contains(event.target as Node)
       ) {
-        setIsOpenLanguages(false);
+        setIsOpenDropdownLanguages(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutsideLanguages);
@@ -76,6 +88,38 @@ const Navbar: FC = () => {
       document.removeEventListener('mousedown', handleClickOutsideLanguages);
     };
   }, [dropdownMenuLanguagesRef]);
+
+  useEffect(() => {
+    const handleClickOutsideMenu = (event: MouseEvent) => {
+      if (
+        dropdownMenuRef.current &&
+        !dropdownButtonMenuRef.current?.contains(event.target as Node) &&
+        !dropdownMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsOpenDropdownMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutsideMenu);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutsideMenu);
+    };
+  }, [dropdownMenuLanguagesRef]);
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/locations')) {
+      setIsOpenPageLocations(true);
+    } else {
+      setIsOpenPageLocations(false);
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/menu')) {
+      setIsOpenPageMenu(true);
+    } else {
+      setIsOpenPageMenu(false);
+    }
+  }, [location]);
 
   return (
     <>
@@ -87,34 +131,41 @@ const Navbar: FC = () => {
           </NavLink>
           <div className="navigation">
             <button
-              onClick={handleClickLocationsDropdown}
               ref={dropdownButtonLocationsRef}
-              className={`dropdownNavbarBtns ${isOpenLocations && 'active'}`}
+              className={`dropdownNavbarBtns ${
+                (isOpenDropdownLocations || isOpenPageLocations) && 'active'
+              }`}
+              onClick={handleClickLocationsDropdown}
             >
               <p>locations</p>
               <span
                 className={`material-symbols-outlined ${
-                  isOpenLocations && 'more'
+                  isOpenDropdownLocations && 'more'
                 }`}
               >
                 expand_more
               </span>
             </button>
-            <NavLink to="/menu" className="nav-link">
+            <NavLink
+              to="/menu/breakfasts"
+              className={`nav-link ${isOpenPageMenu && 'active'}`}
+            >
               menu
             </NavLink>
             <NavLink to="/about" className="nav-link">
               about us
             </NavLink>
             <button
-              className={`dropdownNavbarBtns ${isOpenLanguages && 'active'}`}
+              className={`dropdownNavbarBtns ${
+                isOpenDropdownLanguages && 'active'
+              }`}
               onClick={handleClickLanguagesDropdown}
               ref={dropdownButtonLanguagesRef}
             >
               <p>language</p>
               <span
                 className={`material-symbols-outlined ${
-                  isOpenLanguages && 'more'
+                  isOpenDropdownLanguages && 'more'
                 }`}
               >
                 expand_more
@@ -124,11 +175,8 @@ const Navbar: FC = () => {
               log in
             </button>
           </div>
-          {isOpenLocations && (
-            <div
-              ref={dropdownMenuLocationsRef}
-              className="dropdownLocations-container"
-            >
+          {isOpenDropdownLocations && (
+            <div ref={dropdownMenuLocationsRef} className="dropdown-container">
               <ul>
                 <NavLink to="locations/batumi">
                   <li>batumi</li>
@@ -139,7 +187,7 @@ const Navbar: FC = () => {
               </ul>
             </div>
           )}
-          {isOpenLanguages && (
+          {isOpenDropdownLanguages && (
             <div
               className="dropdownLanguages-container"
               ref={dropdownMenuLanguagesRef}
@@ -157,6 +205,21 @@ const Navbar: FC = () => {
               </ul>
             </div>
           )}
+          {/* {isOpenDropdownMenu && (
+            <div
+              className="dropdown-container dropdownMenu"
+              ref={dropdownMenuRef}
+            >
+              <ul>
+                <NavLink to="menu/restaurants">
+                  <li>restaurants</li>
+                </NavLink>
+                <NavLink to="menu/delivery">
+                  <li>delivery</li>
+                </NavLink>
+              </ul>
+            </div>
+          )} */}
         </div>
       </div>
     </>
