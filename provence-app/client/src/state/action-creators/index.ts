@@ -56,40 +56,6 @@ export const registrationUser = (
   };
 };
 
-// export const getDishes = (
-//   dishUrl: string,
-//   page: number,
-//   searchValue: string
-// ): any => {
-//   return async (dispatch: any) => {
-//     try {
-//       const responseDishes = (
-//         await axios.get(
-//           `http://localhost:5000/api/${dishUrl}?page=${page}&search=${searchValue}`
-//         )
-//       ).data[dishUrl];
-//       const responseDishesDataInfo = (
-//         await axios.get(
-//           `http://localhost:5000/api/${dishUrl}?page=${page}&search=${searchValue}`
-//         )
-//       ).data;
-//       const response = {
-//         responseDishes,
-//         responseDishesDataInfo,
-//       };
-//       dispatch({
-//         type: 'GETDISHES_SUCCESS',
-//         payload: response,
-//       });
-//     } catch (error: any) {
-//       dispatch({
-//         type: 'GETDISHES_ERROR',
-//         payload: error.message,
-//       });
-//     }
-//   };
-// };
-
 export const getDishes = (
   dishUrl: string,
   page: number,
@@ -130,14 +96,32 @@ export const clearSearchInput = () => ({
   type: 'SEARCH_CLEAR',
 });
 
-export const getDefaultCart = (dishesData: IDish[]) => {
-  let cart: any = {};
-  dishesData.forEach((el) => {
-    cart[el._id] = 0;
-  });
-  return {
-    type: 'GET_DEFAULT_CART',
-    payload: cart,
+// export const getDefaultCart = (dishesData: IDish[]) => {
+//   let cart: any = {};
+//   dishesData.forEach((el) => {
+//     cart[el._id] = 0;
+//   });
+//   return {
+//     type: 'GET_DEFAULT_CART',
+//     payload: cart,
+//   };
+// };
+
+export const getDefaultCart = (): any => {
+  return async (dispatch: any) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/alldishes`);
+      const alldishes = response.data.alldishes;
+      dispatch({
+        type: 'GET_DEFAULT_CART',
+        payload: alldishes,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: 'GET_CART_ERROR',
+        payload: error.message,
+      });
+    }
   };
 };
 

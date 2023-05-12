@@ -92,3 +92,8 @@ export interface IDishesInCart {
     [key: string]: number;
   };
 }
+
+export interface ICart {
+  dishes: IDish[];
+  error: any;
+}

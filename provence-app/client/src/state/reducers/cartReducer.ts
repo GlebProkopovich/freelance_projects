@@ -1,5 +1,8 @@
-const initialState: any = {
-  dishes: {},
+import { ICart } from '../../types';
+
+const initialState: ICart = {
+  dishes: [],
+  error: null,
 };
 
 export const cartReducer = (state = initialState, action: any) => {
@@ -7,19 +10,21 @@ export const cartReducer = (state = initialState, action: any) => {
     case 'GET_DEFAULT_CART':
       return {
         ...state,
-        dishes: {
-          ...state.dishes,
-          ...action.payload,
-        },
+        dishes: action.payload,
       };
-    case 'ADD_TO_CART':
+    case 'GET_CART_ERROR':
       return {
         ...state,
-        dishes: {
-          ...state.dishes,
-          [action.payload]: state.dishes[action.payload] + 1,
-        },
+        error: action.payload,
       };
+    // case 'ADD_TO_CART':
+    //   return {
+    //     ...state,
+    //     dishes: {
+    //       ...state.dishes,
+    //       [action.payload]: state.dishes[action.payload] + 1,
+    //     },
+    //   };
     default:
       return state;
   }

@@ -1,9 +1,18 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import waffleSandwich from '../../images/waffle-sandwich.png';
 import './Homepage.scss';
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { actionCreators } from '../../state';
 
 const Homepage: FC = () => {
+  const dispatch = useDispatch();
+
+  const { getDefaultCart } = actionCreators;
+
+  useEffect(() => {
+    dispatch(getDefaultCart());
+  }, []);
   return (
     <div className="homepage-container">
       <div className="homepage-subcontainer">

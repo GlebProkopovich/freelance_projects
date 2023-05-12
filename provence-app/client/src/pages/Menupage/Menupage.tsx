@@ -37,7 +37,7 @@ const Menupage: FC = () => {
 
   const dispatch = useDispatch();
 
-  const { getDishes, getDefaultCart } = actionCreators;
+  const { getDishes } = actionCreators;
 
   const override: CSSProperties = {
     width: '200px',
@@ -72,10 +72,6 @@ const Menupage: FC = () => {
     //   dispatch(getDefaultCart(dishesData));
     setDataReceived(false);
   }, [dataReceived]);
-
-  // useEffect(() => {
-  //   dispatch(getDefaultCart(dishesData));
-  // }, [dishesData]);
 
   return (
     <>
