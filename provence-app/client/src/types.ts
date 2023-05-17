@@ -5,11 +5,11 @@ export interface IPosition {
 }
 
 export interface IPostDish {
-  id?: string;
+  id: string;
   imgSrc: string;
   altImg: string;
   title: string;
-  price: string;
+  price: any;
 }
 
 export interface IUser {
@@ -59,6 +59,18 @@ export interface IDish {
   price: string;
 }
 
+export interface IDishCart {
+  _id: string;
+  id: string;
+  headline: string;
+  category?: string;
+  imgSrc: string;
+  altImg: string;
+  title: string;
+  price: string;
+  _v?: number;
+}
+
 export interface IDishData {
   dishesData: {
     dishesAllInfo: {
@@ -81,19 +93,25 @@ export interface IDishAllInfo {
   };
 }
 
+export interface IAllIdDishes {
+  [key: string]: number;
+}
+
 export interface ISearchValue {
   search: {
     value: string;
   };
 }
 
-export interface IDishesInCart {
-  cart: {
-    [key: string]: number;
-  };
-}
+// export interface IDishesInCart {
+//   cart: {
+//     dishes: {
+//       [key: string]: number;
+//     };
+//   };
+// }
 
 export interface ICart {
-  dishes: IDish[];
+  dishes: any;
   error: any;
 }

@@ -5,7 +5,7 @@ class AllDishesController {
   async getAllDishes(req, res) {
     try {
       const page = parseInt(req.query.page) - 1 || 0;
-      const limit = parseInt(req.query.limit) || 8;
+      const limit = parseInt(req.query.limit) || 34;
       const search = req.query.search || '';
 
       const alldishes = await AllDishes.find({

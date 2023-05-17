@@ -29,11 +29,16 @@
   h3 {
     height: 70px;
     width: 200px;
-    display: flex;
+    margin: 20px 0 0 10px;
     font-size: 18px;
     font-weight: 600;
-    margin: 20px 0 0 10px;
     color: #323232;
+
+    span {
+      color: rgba(189, 0, 0, 0.949);
+      font-weight: 700;
+      margin-left: 5px;
+    }
   }
 
   .priceOfTheDish-btn {
@@ -69,6 +74,11 @@
 
     &:hover {
       transform: scale(105%);
+    }
+
+    &:active {
+      transform: scale(110%);
+      background-color: rgba(151, 0, 0, 0.949);
     }
 
     p {

@@ -88,10 +88,10 @@ const Menubar: FC = () => {
               <span className="material-symbols-outlined">search</span>
             </button>
           )}
-          <button className="cart-btn menubar-btn">
+          <NavLink to="/cart" className="cart-btn menubar-btn">
             <span className="material-symbols-outlined">shopping_cart</span>
             <p>{qtyOfTheDishesInCart}</p>
-          </button>
+          </NavLink>
         </div>
       </div>
     </div>

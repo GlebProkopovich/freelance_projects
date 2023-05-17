@@ -6,6 +6,7 @@ import registrationReducer from './registrationReducer';
 import { getDishesReducer } from './getDishesReducer';
 import { searchReducer } from './searchReducer';
 import { cartReducer } from './cartReducer';
+import { getAllDishesReducer } from './getAllDishesReducer';
 
 export const reducers = combineReducers({
   loginForm: isLoginOpenedReducer,
@@ -15,4 +16,5 @@ export const reducers = combineReducers({
   dishesData: getDishesReducer,
   search: searchReducer,
   cart: cartReducer,
+  allDishes: getAllDishesReducer,
 });

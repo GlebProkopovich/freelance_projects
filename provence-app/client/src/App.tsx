@@ -6,11 +6,13 @@ import Navbar from './components/Navbar/Navbar';
 import ContactInfo from './components/ContactInfo/ContactInfo';
 import { useState, useEffect } from 'react';
 import { ILogin, IRegistration } from './types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import './App.scss';
 import Menupage from './pages/Menupage/Menupage';
+import { actionCreators } from './state';
+import Cartpage from './pages/Cartpage/Cartpage';
 
 function App() {
   const location = useLocation();
@@ -22,6 +24,8 @@ function App() {
     (state: IRegistration) => state.registrationForm.isOpened
   );
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (location.pathname.startsWith('/menu')) {
       setIsMenuOpen(true);
@@ -29,6 +33,14 @@ function App() {
       setIsMenuOpen(false);
     }
   }, [location]);
+
+  const { getDefaultCart } = actionCreators;
+
+  useEffect(() => {
+    // Проверяем есть ли уже в ls дефолт карт, чтобы не обнулялась корзина
+    const isAppStarted = localStorage.getItem('persist:root');
+    !isAppStarted && dispatch(getDefaultCart());
+  }, []);
 
   return (
     <>
@@ -59,6 +71,7 @@ function App() {
             }
           />
           <Route path="menu/:dishUrl" element={<Menupage />} />
+          <Route path="cart" element={<Cartpage />} />
           <Route path="about" element={<Aboutpage />} />
           <Route path="*" element={<Homepage />} />
         </Routes>

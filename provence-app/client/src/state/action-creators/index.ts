@@ -1,6 +1,6 @@
 import axios from 'axios';
 import AuthService from '../../services/authService';
-import { IDish } from '../../types';
+import { IAllIdDishes, IDishCart } from '../../types';
 
 export const setLoginOpened = () => ({
   type: 'IS_LOGIN_OPENED',
@@ -96,25 +96,18 @@ export const clearSearchInput = () => ({
   type: 'SEARCH_CLEAR',
 });
 
-// export const getDefaultCart = (dishesData: IDish[]) => {
-//   let cart: any = {};
-//   dishesData.forEach((el) => {
-//     cart[el._id] = 0;
-//   });
-//   return {
-//     type: 'GET_DEFAULT_CART',
-//     payload: cart,
-//   };
-// };
-
 export const getDefaultCart = (): any => {
   return async (dispatch: any) => {
     try {
       const response = await axios.get(`http://localhost:5000/api/alldishes`);
-      const alldishes = response.data.alldishes;
+      const alldishes: IDishCart[] = response.data.alldishes;
+      const allIdDishes: IAllIdDishes = {};
+      alldishes.forEach((el) => {
+        allIdDishes[el.id] = 0;
+      });
       dispatch({
         type: 'GET_DEFAULT_CART',
-        payload: alldishes,
+        payload: allIdDishes,
       });
     } catch (error: any) {
       dispatch({
@@ -125,9 +118,34 @@ export const getDefaultCart = (): any => {
   };
 };
 
+export const getAllDishes = (): any => {
+  return async (dispatch: any) => {
+    try {
+      const response = (await axios.get(`http://localhost:5000/api/alldishes`))
+        .data.alldishes;
+      dispatch({
+        type: 'GET_ALL_DISHES',
+        payload: response,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: 'GET_DISHES_ERROR',
+        payload: error.message,
+      });
+    }
+  };
+};
+
 export const addToCart = (dishId: string | undefined) => {
   return {
     type: 'ADD_TO_CART',
+    payload: dishId,
+  };
+};
+
+export const deleteFromCart = (dishId: string | undefined) => {
+  return {
+    type: 'DELETE_FROM_CART',
     payload: dishId,
   };
 };

@@ -31,10 +31,6 @@ const Menupage: FC = () => {
 
   const searchValue = useSelector((state: ISearchValue) => state.search.value);
 
-  const data = useSelector((state) => state);
-
-  console.log(data);
-
   const dispatch = useDispatch();
 
   const { getDishes } = actionCreators;
@@ -73,6 +69,8 @@ const Menupage: FC = () => {
     setDataReceived(false);
   }, [dataReceived]);
 
+  console.log(dishesData);
+
   return (
     <>
       <Menubar />
@@ -85,48 +83,51 @@ const Menupage: FC = () => {
           aria-label="Loading Spinner"
           data-testid="loader"
         />
-      ) : (
-        dishesData.length && (
-          <>
-            <div className="menuRestaurantpage-container">
-              <h2>{dishesData?.[0].category}</h2>
-              <div className="postdish-list">
-                {dishesData?.map((el: any) => {
-                  return (
-                    <PostDish
-                      key={el._id}
-                      id={el._id}
-                      imgSrc={el.imgSrc}
-                      altImg={el.altImg}
-                      title={el.title}
-                      price={el.price}
-                    />
-                  );
-                })}
-              </div>
-              <div className="pagination-container">
-                {pageQty > 1 && (
-                  <Pagination
-                    count={pageQty}
-                    page={page}
-                    onChange={(_, num) => {
-                      setPage(num);
-                    }}
-                    size="large"
-                    sx={{ fontSize: '50px' }}
-                    renderItem={(item) => (
-                      <PaginationItem
-                        component={NavLink}
-                        to={`/menu/${dishUrl}/?page=${item.page}`}
-                        {...item}
-                      />
-                    )}
+      ) : dishesData.length ? (
+        <>
+          <div className="menuRestaurantpage-container">
+            <h2>{dishesData?.[0].category}</h2>
+            <div className="postdish-list">
+              {dishesData?.map((el: any) => {
+                return (
+                  <PostDish
+                    key={el._id}
+                    id={el._id}
+                    imgSrc={el.imgSrc}
+                    altImg={el.altImg}
+                    title={el.title}
+                    price={el.price}
                   />
-                )}
-              </div>
+                );
+              })}
             </div>
-          </>
-        )
+            <div className="pagination-container">
+              {pageQty > 1 && (
+                <Pagination
+                  count={pageQty}
+                  page={page}
+                  onChange={(_, num) => {
+                    setPage(num);
+                  }}
+                  size="large"
+                  sx={{ fontSize: '50px' }}
+                  renderItem={(item) => (
+                    <PaginationItem
+                      component={NavLink}
+                      to={`/menu/${dishUrl}/?page=${item.page}`}
+                      {...item}
+                    />
+                  )}
+                />
+              )}
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="searchResults">
+          There isn't this dish here, you can find this one in the other
+          category in menu :)
+        </div>
       )}
     </>
   );

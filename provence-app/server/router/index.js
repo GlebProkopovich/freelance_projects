@@ -8,6 +8,7 @@ const sweetwafflesController = require('../controllers/sweetwaffles-controller')
 const croissantsController = require('../controllers/croissants-controller');
 const wafflesandwichesController = require('../controllers/wafflesandwiches-controller');
 const allDishesController = require('../controllers/allDishes-controller');
+const orderController = require('../controllers/order-controller');
 
 const router = new Router();
 
@@ -28,5 +29,6 @@ router.get('/sweetwaffles', sweetwafflesController.getSweetWaffles);
 router.get('/croissants', croissantsController.getCroissants);
 router.get('/wafflesandwiches', wafflesandwichesController.getWaffleSandwiches);
 router.get('/alldishes', allDishesController.getAllDishes);
+router.post('/order', orderController.putOrderToDb);
 
 module.exports = router;
