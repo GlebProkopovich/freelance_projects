@@ -13,6 +13,7 @@ export interface IPostDish {
 }
 
 export interface IUser {
+  name?: string;
   email: string | null;
   isActivated: boolean;
   id: string | null;
@@ -22,6 +23,19 @@ export interface AuthResponse {
   accessToken: string;
   refreshToken: string;
   user: IUser;
+}
+
+export interface ILoginUser {
+  loginUser: {
+    error: any;
+    userInfo: AuthResponse;
+  };
+}
+
+export interface IAuthedUser {
+  authUser: {
+    isAuth: boolean;
+  };
 }
 
 export interface ILoginOpened {
@@ -38,6 +52,12 @@ export interface ISuccessfullWindowOpened {
 
 export interface IRegistrationCompleted {
   isOpened: boolean;
+}
+
+export interface IRegistrationCompleteWindow {
+  registrationCompletedWindow: {
+    isOpened: boolean;
+  };
 }
 
 export interface IErrorWindowOpened {
@@ -67,12 +87,15 @@ export interface IAuthUser {
 }
 
 export interface IDish {
-  _id: string;
+  _id?: string;
   category?: string;
   imgSrc: string;
   altImg: string;
   title: string;
   price: string;
+  headline?: string;
+  id: string;
+  _v?: number;
 }
 
 export interface IDishCart {
@@ -113,21 +136,72 @@ export interface IAllIdDishes {
   [key: string]: number;
 }
 
+export interface IDishesInCart {
+  cart: {
+    dishes: IAllIdDishes;
+    error: any;
+  };
+}
+
 export interface ISearchValue {
   search: {
     value: string;
   };
 }
 
-// export interface IDishesInCart {
-//   cart: {
-//     dishes: {
-//       [key: string]: number;
-//     };
-//   };
-// }
-
 export interface ICart {
   dishes: any;
   error: any;
+}
+
+export interface IAllDishesId {
+  cart: {
+    dishes: IAllIdDishes;
+    error: any;
+  };
+}
+
+export interface IAllDishes {
+  allDishes: {
+    dishes: IDish[];
+    error: any;
+  };
+}
+
+export interface ISuccessModal {
+  successfullWindow: {
+    isOpened: boolean;
+  };
+}
+
+export interface IErrorModal {
+  errorWindow: {
+    isOpened: boolean;
+  };
+}
+
+export interface IOrderedDishInfo {
+  price: string;
+  quantity: number;
+  title: string;
+}
+
+export interface ILoginError {
+  loginUser: {
+    error: any;
+    userInfo: IUser;
+  };
+}
+
+export interface ILoadingOpened {
+  loading: {
+    isOpened: boolean;
+  };
+}
+
+export interface IRegistrationError {
+  registrationUser: {
+    error: any;
+    userInfo: IUser;
+  };
 }

@@ -75,18 +75,50 @@
         background: rgba(164, 164, 164, 0.949);
       }
     }
+  }
+}
 
-    .close-btn {
-      position: absolute;
-      top: 30px;
-      left: 500px;
-      color: #fff;
-      font-size: 40px;
-      transition: all 0.3s ease;
-      cursor: pointer;
+@media screen and (max-width: 650px) {
+  .approvedMail-container {
+    .approvedMail-subcontainer {
+      width: 260px;
 
-      &:hover {
-        transform: scale(120%);
+      h1 {
+        font-size: 30px;
+      }
+
+      h2 {
+        width: 210px;
+        font-size: 16px;
+      }
+
+      a {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .approvedMail-container {
+    .approvedMail-subcontainer {
+      height: 360px;
+      width: 210px;
+
+      h1 {
+        font-size: 25px;
+      }
+
+      h2 {
+        width: 160px;
+        font-size: 14px;
+      }
+
+      a {
+        height: 40px;
+        width: 120px;
+        font-size: 14px;
+        margin-top: 15px;
       }
     }
   }

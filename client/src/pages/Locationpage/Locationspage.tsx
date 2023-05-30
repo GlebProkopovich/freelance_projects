@@ -1,16 +1,16 @@
 import { FC, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { IPosition } from '../../types';
-import './Locationpage.scss';
 import 'leaflet/dist/leaflet.css';
-
-const zoom = 17;
+import './Locationpage.scss';
 
 const Locationspage: FC<IPosition> = ({
   position,
   locationOfTheRestaurant,
   adressOfTheRestaurant,
 }) => {
+  const zoom = 17;
+
   const mapRef = useRef<L.Map>(null);
 
   useEffect(() => {

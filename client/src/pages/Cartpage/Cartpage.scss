@@ -1,5 +1,5 @@
 .cartpage-container {
-  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto 50px;
 
   .back-btn {
@@ -62,10 +62,10 @@
   }
 
   form {
-    width: 1100px;
-    margin: 0 auto;
+    max-width: 1100px;
+    margin: 0 50px;
     background: #fff;
-    padding: 10px 50px;
+    padding: 10px 20px;
     border-radius: 10px;
 
     .inputs-container {
@@ -75,7 +75,7 @@
 
       .input {
         height: 80px;
-        width: 1050px;
+        width: 100%;
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -121,12 +121,17 @@
       }
 
       .select-container {
+        width: 100%;
         margin: 20px 0;
+
+        select {
+          width: 100%;
+        }
       }
 
       button {
         height: 50px;
-        width: 1050px;
+        width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -170,6 +175,147 @@
         font-size: 18px;
         border-bottom: solid 0.5px #323232;
         background: #fff;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .cartpage-container {
+    max-width: 1200px;
+
+    .headline {
+      font-size: 26px;
+
+      &:nth-child(3) {
+        height: 70px;
+        width: 450px;
+        line-height: 25px;
+        padding-right: 20px;
+        font-size: 18px;
+      }
+
+      &:nth-child(4) {
+        height: 50px;
+        width: 450px;
+        line-height: 25px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .cartpage-container {
+    .headline {
+      &:nth-child(3) {
+        width: 350px;
+        line-height: 25px;
+        font-size: 14px;
+      }
+
+      &:nth-child(4) {
+        height: 50px;
+        width: 350px;
+        line-height: 25px;
+        font-size: 14px;
+      }
+    }
+
+    form {
+      .inputs-container {
+        .input {
+          label {
+            top: 25px;
+            font-size: 16px;
+          }
+
+          input {
+            font-size: 16px;
+          }
+        }
+
+        button {
+          font-size: 16px;
+        }
+
+        .select {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .cartpage-container {
+    .back-btn {
+      width: 60px;
+      font-size: 16px;
+
+      span {
+        font-size: 16px;
+      }
+    }
+
+    .headline {
+      font-size: 20px;
+      font-weight: 600;
+
+      &:nth-child(3) {
+        height: 100px;
+        width: 230px;
+        line-height: 25px;
+        font-size: 14px;
+        font-weight: 400;
+
+        span {
+          font-weight: 600;
+        }
+      }
+
+      &:nth-child(4) {
+        height: 100px;
+        width: 230px;
+        line-height: 25px;
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+
+    form {
+      .inputs-container {
+        .input {
+          label {
+            top: 28px;
+            font-size: 14px;
+          }
+
+          input {
+            font-size: 14px;
+          }
+
+          .error {
+            font-size: 10px;
+          }
+
+          .label-focused {
+            font-size: 9px;
+          }
+        }
+
+        button {
+          font-size: 6px;
+        }
+
+        .select {
+          font-size: 14px;
+        }
+
+        .select-container {
+          .additionalInfo {
+            font-size: 10px;
+          }
+        }
       }
     }
   }

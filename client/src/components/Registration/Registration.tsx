@@ -7,12 +7,11 @@ import {
   FormEvent,
   CSSProperties,
 } from 'react';
-
-import './Registration.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { BeatLoader } from 'react-spinners';
-import { IRegistration } from '../../types';
+import { ILoadingOpened, IRegistration, IRegistrationError } from '../../types';
 import { actionCreators } from '../../state';
+import './Registration.scss';
 
 const Registration: FC = () => {
   const [nameValue, setNameValue] = useState<string>('');
@@ -35,14 +34,15 @@ const Registration: FC = () => {
   const [numberValueDirty, setNumberValueDirty] = useState<boolean>(false);
   const [emailValueDirty, setEmailValueDirty] = useState<boolean>(false);
   const [passwordValueDirty, setPasswordValueDirty] = useState<boolean>(false);
+
   const isRegistrationOpened = useSelector(
     (state: IRegistration) => state.registrationForm.isOpened
   );
-
-  const registrationError = useSelector((state: any) => state).registrationUser
-    .error;
-
-  const isLoadingOpened = useSelector((state: any) => state.loading.isOpened);
+  const registrationError = useSelector((state: IRegistrationError) => state)
+    .registrationUser.error;
+  const isLoadingOpened = useSelector(
+    (state: ILoadingOpened) => state.loading.isOpened
+  );
 
   const dispatch = useDispatch();
 

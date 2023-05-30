@@ -1,21 +1,21 @@
 import { FC } from 'react';
-import './CartItem.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { IPostDish } from '../../types';
+import { IAllDishesId, IPostDish } from '../../types';
 import { actionCreators } from '../../state';
+import './CartItem.scss';
 
 const CartItem: FC<IPostDish> = ({ id, imgSrc, altImg, title, price }) => {
-  const allDishesId = useSelector((state: any) => state.cart.dishes);
+  const allDishesId = useSelector((state: IAllDishesId) => state.cart.dishes);
 
   const dispatch = useDispatch();
 
   const { addToCart, deleteFromCart } = actionCreators;
 
-  const handleClickAddToCart = (id: string) => {
+  const handleClickAddToCart = (id: string): void => {
     dispatch(addToCart(id));
   };
 
-  const handleClickDeleteFromCart = (id: string) => {
+  const handleClickDeleteFromCart = (id: string): void => {
     dispatch(deleteFromCart(id));
   };
 

@@ -8,9 +8,9 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators } from '../../state';
-import './Login.scss';
-import { divIcon } from 'leaflet';
 import { BeatLoader } from 'react-spinners';
+import { ILoadingOpened, ILoginError } from '../../types';
+import './Login.scss';
 
 const Login: FC = () => {
   const [emailValue, setEmailValue] = useState<string>('');
@@ -24,9 +24,10 @@ const Login: FC = () => {
   const [isEmailFocused, setIsEmailFocused] = useState<boolean>(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState<boolean>(false);
 
-  const loginError = useSelector((state: any) => state.loginUser.error);
-
-  const isLoadingOpened = useSelector((state: any) => state.loading.isOpened);
+  const loginError = useSelector((state: ILoginError) => state.loginUser.error);
+  const isLoadingOpened = useSelector(
+    (state: ILoadingOpened) => state.loading.isOpened
+  );
 
   const override: CSSProperties = {
     margin: '0 auto',

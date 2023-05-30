@@ -3,8 +3,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import { Provider } from 'react-redux';
 import { persistor, store } from './state/store';
-import './index.scss';
 import { PersistGate } from 'redux-persist/integration/react';
+import './index.scss';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

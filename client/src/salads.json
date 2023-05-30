@@ -1,0 +1,34 @@
+[
+  {
+    "imgSrc": "https://i.ibb.co/d45DySg/15.png",
+    "altImg": "Caesar with chicken",
+    "title": "Caesar with chicken",
+    "price": "20 ₾",
+    "headline": "salads",
+    "category": "salads"
+  },
+  {
+    "imgSrc": "https://i.ibb.co/9n658WT/20.jpg",
+    "altImg": "Caesar salad with shrimps",
+    "title": "Caesar salad with shrimps",
+    "price": "27 ₾",
+    "headline": "salads",
+    "category": "salads"
+  },
+  {
+    "imgSrc": "https://i.ibb.co/tDPd9dV/6.jpg",
+    "altImg": "Cucumber and tomato salad with nuts",
+    "title": "Cucumber and tomato salad with nuts",
+    "price": "11 ₾",
+    "headline": "salads",
+    "category": "salads"
+  },
+  {
+    "imgSrc": "https://i.ibb.co/DfqGXny/11.jpg",
+    "altImg": "Greek salad",
+    "title": "Greek salad",
+    "price": "14 ₾",
+    "headline": "salads",
+    "category": "salads"
+  }
+]

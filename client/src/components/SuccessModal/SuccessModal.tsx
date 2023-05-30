@@ -1,14 +1,14 @@
 import { NavLink } from 'react-router-dom';
-import './SuccessModal.scss';
 import { useDispatch } from 'react-redux';
 import { actionCreators } from '../../state';
+import './SuccessModal.scss';
 
 const SuccessfullOrder = () => {
   const dispatch = useDispatch();
 
   const { setSuccessfullWindowOpened } = actionCreators;
 
-  const handleClickOnBtn = (value: boolean) => {
+  const handleClickOnBtn = (value: boolean): void => {
     dispatch(setSuccessfullWindowOpened(value));
   };
 

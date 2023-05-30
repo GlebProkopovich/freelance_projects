@@ -97,7 +97,6 @@
 
       .loginBtn {
         height: 50px;
-        min-width: 120px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -110,6 +109,7 @@
         text-transform: uppercase;
         transition: all 0.3s ease;
         margin-right: 10px;
+        padding: 0 20px;
         cursor: pointer;
 
         &:hover {
@@ -121,7 +121,7 @@
         }
 
         span {
-          margin: 0 10px 0 0;
+          padding-right: 10px;
         }
       }
     }
@@ -241,7 +241,6 @@
 
         .loginBtn {
           height: 40px;
-          min-width: 100px;
           font-size: 15px;
         }
       }
@@ -286,7 +285,6 @@
   justify-content: space-between;
   padding: 0 20px;
   background: #fff;
-  border-bottom: 0.5px solid rgb(211, 211, 211);
 
   .dropdown-btn {
     height: 20px;
@@ -370,7 +368,6 @@
 
   .loginBtn {
     height: 40px;
-    min-width: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -381,6 +378,7 @@
     background: rgba(189, 0, 0, 0.949);
     text-decoration: none;
     text-transform: uppercase;
+    padding: 0 10px;
     transition: all 0.3s ease;
     cursor: pointer;
 
@@ -393,7 +391,7 @@
     }
 
     span {
-      margin: 0 10px 0 0;
+      padding-right: 5px;
     }
   }
 
@@ -554,7 +552,7 @@
 
     .loginBtn {
       height: 35px;
-      font-size: 16px;
+      font-size: 12px;
     }
 
     .dropdownMenu-container {

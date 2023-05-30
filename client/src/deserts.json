@@ -1,0 +1,34 @@
+[
+  {
+    "imgSrc": "https://i.ibb.co/QCBdvCH/image.jpg",
+    "altImg": "Honey cake",
+    "title": "Honey cake",
+    "price": "8 ₾",
+    "headline": "desserts",
+    "category": "desserts"
+  },
+  {
+    "imgSrc": "https://i.ibb.co/n3nsXLT/image.jpg",
+    "altImg": "Carrot cake",
+    "title": "Carrot cake",
+    "price": "9 ₾",
+    "headline": "desserts",
+    "category": "desserts"
+  },
+  {
+    "imgSrc": "https://i.ibb.co/wSCqXMP/image.jpg",
+    "altImg": "Napoleon",
+    "title": "Napoleon",
+    "price": "9 ₾",
+    "headline": "desserts",
+    "category": "desserts"
+  },
+  {
+    "imgSrc": "https://i.ibb.co/16kq3SR/image.jpg",
+    "altImg": "Chocolate cake",
+    "title": "Chocolate cake",
+    "price": "9 ₾",
+    "headline": "desserts",
+    "category": "desserts"
+  }
+]

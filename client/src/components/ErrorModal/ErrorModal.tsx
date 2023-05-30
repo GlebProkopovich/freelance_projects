@@ -1,15 +1,14 @@
 import { FC } from 'react';
-import { NavLink } from 'react-router-dom';
-import './ErrorModal.scss';
 import { useDispatch } from 'react-redux';
 import { actionCreators } from '../../state';
+import './ErrorModal.scss';
 
 const ErrorModal: FC = () => {
   const dispatch = useDispatch();
 
   const { setErrorWindowOpened } = actionCreators;
 
-  const handleClickOnBtn = (value: boolean) => {
+  const handleClickOnBtn = (value: boolean): void => {
     dispatch(setErrorWindowOpened(value));
   };
 

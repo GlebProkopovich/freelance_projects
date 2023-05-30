@@ -92,3 +92,58 @@
     }
   }
 }
+
+@media screen and (max-width: 650px) {
+  .errorModal-container {
+    .errorModal-subcontainer {
+      height: 390px;
+      width: 260px;
+
+      h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 25px;
+        line-height: 25px;
+      }
+
+      h2 {
+        width: 210px;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      .goToCart-btn {
+        font-size: 16px;
+      }
+
+      .close-btn {
+        top: 30px;
+        left: 262px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .errorModal-container {
+    .errorModal-subcontainer {
+      height: 390px;
+      width: 210px;
+
+      h2 {
+        width: 160px;
+        font-size: 16px;
+      }
+
+      .goToCart-btn {
+        margin-top: 25px;
+      }
+
+      .close-btn {
+        font-size: 30px;
+        left: 212px;
+      }
+    }
+  }
+}

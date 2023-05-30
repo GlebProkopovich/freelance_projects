@@ -5,7 +5,7 @@ import Locationspage from './pages/Locationpage/Locationspage';
 import Navbar from './components/Navbar/Navbar';
 import ContactInfo from './components/ContactInfo/ContactInfo';
 import { useState, useEffect } from 'react';
-import { ILogin, IRegistration } from './types';
+import { ILogin, IRegistration, IRegistrationCompleteWindow } from './types';
 import { useDispatch, useSelector } from 'react-redux';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
@@ -13,11 +13,10 @@ import Menupage from './pages/Menupage/Menupage';
 import { actionCreators } from './state';
 import Cartpage from './pages/Cartpage/Cartpage';
 import RegistrationCompletedModal from './components/RegistrationCompleted/RegistrationCompleted';
-import './App.scss';
 import ApprovedMail from './pages/ApprovedMailpage/ApprovedMail';
+import './App.scss';
 
 function App() {
-  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const isLoginOpened = useSelector(
     (state: ILogin) => state.loginForm.isOpened
@@ -26,12 +25,15 @@ function App() {
     (state: IRegistration) => state.registrationForm.isOpened
   );
   const isRegistrationCompleted = useSelector(
-    (state: any) => state.registrationCompletedWindow.isOpened
+    (state: IRegistrationCompleteWindow) =>
+      state.registrationCompletedWindow.isOpened
   );
 
   const { refresh, getDefaultCart } = actionCreators;
 
   const dispatch = useDispatch();
+
+  const location = useLocation();
 
   useEffect(() => {
     if (location.pathname.startsWith('/menu')) {
@@ -42,7 +44,6 @@ function App() {
   }, [location]);
 
   useEffect(() => {
-    // Проверяем есть ли уже в ls дефолт карт, чтобы не обнулялась корзина
     const isAppStarted = localStorage.getItem('persist:root');
     !isAppStarted && dispatch(getDefaultCart());
 

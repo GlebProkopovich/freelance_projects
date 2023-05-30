@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import instagramIcon from '../../images/icons/instagramIcon.png';
 import twitterIcon from '../../images/icons/twitterIcon.png';
 import whatsappIcon from '../../images/icons/whatsappIcon.png';

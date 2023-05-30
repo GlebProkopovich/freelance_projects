@@ -1,20 +1,16 @@
 import { FC } from 'react';
-import './RegistrationCompleted.scss';
 import { actionCreators } from '../../state';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import './RegistrationCompleted.scss';
 
 const RegistrationCompletedModal: FC = () => {
   const dispatch = useDispatch();
 
-  const { setRegistrationWindowCompleted, setLoginOpened } = actionCreators;
+  const { setRegistrationWindowCompleted } = actionCreators;
 
-  const handleClickOnBtn = (value: boolean) => {
+  const handleClickOnBtn = (value: boolean): void => {
     dispatch(setRegistrationWindowCompleted(value));
-  };
-
-  const openLoginWindow = () => {
-    dispatch(setLoginOpened());
   };
 
   return (

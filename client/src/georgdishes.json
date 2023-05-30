@@ -1,0 +1,34 @@
+[
+  {
+    "imgSrc": "https://i.ibb.co/0DPPHyH/10.jpg",
+    "altImg": "Chkmeruli",
+    "title": "Chkmeruli",
+    "price": "20 ₾",
+    "headline": "georgian dishes",
+    "category": "georgian dishes"
+  },
+  {
+    "imgSrc": "https://i.ibb.co/wSXmfND/10.jpg",
+    "altImg": "Ojakhuri",
+    "title": "Ojakhuri",
+    "price": "15 ₾",
+    "headline": "georgian dishes",
+    "category": "georgian dishes"
+  },
+  {
+    "imgSrc": "https://i.ibb.co/31JVPwV/image.jpg",
+    "altImg": "Imeretian khachapuri",
+    "title": "Imeretian khachapuri",
+    "price": "20 ₾",
+    "headline": "georgian dishes",
+    "category": "georgian dishes"
+  },
+  {
+    "imgSrc": "https://i.ibb.co/m9SQJ8K/14.jpg",
+    "altImg": "Megrelian khachapuri",
+    "title": "Megrelian khachapuri",
+    "price": "28 ₾",
+    "headline": "georgian dishes",
+    "category": "georgian dishes"
+  }
+]

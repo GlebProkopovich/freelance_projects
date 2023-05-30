@@ -1,20 +1,20 @@
-const AllDishes = require('../models/allDishes-model');
-// const alldishes = require('../../client/src/allDishes.json');
+const GeorgianDishes = require('../models/georgiandishes-model');
+// const georgiandishes = require('../../client/src/georgdishes.json');
 
-class AllDishesController {
-  async getAllDishes(req, res) {
+class GeorgianDishesController {
+  async getGeorgianDishes(req, res) {
     try {
       const page = parseInt(req.query.page) - 1 || 0;
-      const limit = parseInt(req.query.limit) || 200;
+      const limit = parseInt(req.query.limit) || 8;
       const search = req.query.search || '';
 
-      const alldishes = await AllDishes.find({
+      const georgiandishes = await GeorgianDishes.find({
         title: { $regex: search, $options: 'i' },
       })
         .skip(page * limit)
         .limit(limit);
 
-      const total = await AllDishes.countDocuments({
+      const total = await GeorgianDishes.countDocuments({
         title: { $regex: search, $options: 'i' },
       });
 
@@ -23,7 +23,7 @@ class AllDishesController {
         total,
         page: page + 1,
         limit,
-        alldishes,
+        georgiandishes,
       };
 
       res.status(200).json(response);
@@ -34,17 +34,17 @@ class AllDishesController {
   }
 }
 
-// const insertAllDishes = async () => {
+// const insertGeorgianDishes = async () => {
 //   try {
-//     const docs = await AllDishes.insertMany(alldishes);
+//     const docs = await GeorgianDishes.insertMany(georgiandishes);
 //     return Promise.resolve(docs);
 //   } catch (e) {
 //     return Promise.reject(err);
 //   }
 // };
 
-// insertAllDishes()
+// insertGeorgianDishes()
 //   .then((docs) => console.log(docs))
 //   .catch((err) => console.log(err));
 
-module.exports = new AllDishesController();
+module.exports = new GeorgianDishesController();

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import waffleSandwich from '../../images/waffle-sandwich.png';
-import './Homepage.scss';
 import { NavLink } from 'react-router-dom';
+import './Homepage.scss';
 
 const Homepage: FC = () => {
   return (

@@ -1,4 +1,6 @@
-const initialState: any = {
+import { ICart } from '../../types';
+
+const initialState: ICart = {
   dishes: [],
   error: null,
 };

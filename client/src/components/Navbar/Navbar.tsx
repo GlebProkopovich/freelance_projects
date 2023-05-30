@@ -1,10 +1,10 @@
 import { CSSProperties, FC, useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { ILogin } from '../../types';
+import { IAuthedUser, ILoadingOpened, ILogin, ILoginUser } from '../../types';
 import { actionCreators } from '../../state';
-import './Navbar.scss';
 import { BeatLoader } from 'react-spinners';
+import './Navbar.scss';
 
 const Navbar: FC = () => {
   const [isOpenDropdownLocations, setIsOpenDropdownLocations] =
@@ -25,21 +25,22 @@ const Navbar: FC = () => {
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
   const dropdownButtonMenuRef = useRef<HTMLButtonElement>(null);
 
-  const isAuthedUser = useSelector((state: any) => state.authUser.isAuth);
-
+  const isAuthedUser = useSelector(
+    (state: IAuthedUser) => state.authUser.isAuth
+  );
   const userName = useSelector(
-    (state: any) => state.loginUser.userInfo?.user?.name
+    (state: ILoginUser) => state.loginUser.userInfo?.user?.name
+  );
+  const isLoginOpened = useSelector(
+    (state: ILogin) => state.loginForm.isOpened
+  );
+  const isLoadingOpened = useSelector(
+    (state: ILoadingOpened) => state.loading.isOpened
   );
 
   const location = useLocation();
 
   const dispatch = useDispatch();
-
-  const isLoginOpened = useSelector(
-    (state: ILogin) => state.loginForm.isOpened
-  );
-
-  const isLoadingOpened = useSelector((state: any) => state.loading.isOpened);
 
   const override: CSSProperties = {
     margin: '0 auto',
@@ -169,18 +170,6 @@ const Navbar: FC = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  // useEffect(() => {
-  //   const body = document.getElementsByTagName('body')[0];
-  //   if (isDropdownMenuOpened) {
-  //     body.classList.add('no-scroll');
-  //   } else {
-  //     body.classList.remove('no-scroll');
-  //   }
-  //   return () => {
-  //     body.classList.remove('no-scroll');
-  //   };
-  // }, [isDropdownMenuOpened]);
 
   return (
     <>
@@ -384,9 +373,6 @@ const Navbar: FC = () => {
                     <ul>
                       <li>
                         <p>russian</p>
-                      </li>
-                      <li>
-                        <p>english</p>
                       </li>
                       <li>
                         <p>georgian</p>

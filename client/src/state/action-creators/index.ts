@@ -174,6 +174,7 @@ export const getDefaultCart = (): any => {
   return async (dispatch: any) => {
     try {
       const response = await axios.get(`http://localhost:5000/api/alldishes`);
+      console.log(response);
       const alldishes: IDishCart[] = response.data.alldishes;
       const allIdDishes: IAllIdDishes = {};
       alldishes.forEach((el) => {

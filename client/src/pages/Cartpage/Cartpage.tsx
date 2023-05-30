@@ -6,26 +6,35 @@ import {
   useEffect,
   useState,
   FocusEvent,
+  CSSProperties,
 } from 'react';
-import './Cartpage.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import CartItem from '../../components/CartItem/CartItem';
 import { actionCreators } from '../../state';
 import axios from 'axios';
 import SuccessModal from '../../components/SuccessModal/SuccessModal';
 import ErrorModal from '../../components/ErrorModal/ErrorModal';
+import { BeatLoader } from 'react-spinners';
+import {
+  IAllDishes,
+  IAllDishesId,
+  IAllIdDishes,
+  IDish,
+  IErrorModal,
+  IOrderedDishInfo,
+  ISuccessModal,
+} from '../../types';
+import './Cartpage.scss';
 
 const Cartpage: FC = () => {
-  const navigate = useNavigate();
-  const allDishesId = useSelector((state: any) => state.cart.dishes);
-  const allDishes = useSelector((state: any) => state.allDishes.dishes);
+  const [methodOfPaymentValue, setMethodOfPaymentValue] = useState<string>(
+    'Bank of Georgia card'
+  );
   const [nameValue, setNameValue] = useState<string>('');
   const [phoneValue, setPhoneValue] = useState<string>('');
   const [commentValue, setCommentValue] = useState<string>('');
+  const navigate = useNavigate();
   const [cityValue, setCityValue] = useState<string>('Batumi');
-  const [methodOfPaymentValue, setMethodOfPaymentValue] = useState<string>(
-    'Bank card (BoG, TBC, Russian bank card)'
-  );
   const [locationProvenceValue, setLocationProvenceValue] = useState<string>(
     '3rd quarter of Digomi, 2 (Didi Dighomi, Dighomi, Didube)'
   );
@@ -46,20 +55,26 @@ const Cartpage: FC = () => {
   const [phoneValueDirty, setPhoneValueDirty] = useState<boolean>(false);
   const [userAdressValueDirty, setUserAdressValueDirty] =
     useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const allDishesId = useSelector((state: IAllDishesId) => state.cart.dishes);
+  const allDishes = useSelector((state: IAllDishes) => state.allDishes.dishes);
   const isSuccessModalOpened = useSelector(
-    (state: any) => state.successfullWindow.isOpened
+    (state: ISuccessModal) => state.successfullWindow.isOpened
   );
-
   const isErrorModalOpened = useSelector(
-    (state: any) => state.errorWindow.isOpened
+    (state: IErrorModal) => state.errorWindow.isOpened
   );
 
   let totalPrice = 0;
 
-  let orderedDishes: any = [];
+  let orderedDishes: IOrderedDishInfo[] = [];
 
   const API_URL = 'http://localhost:5000/api';
+
+  const override: CSSProperties = {
+    margin: '0 auto',
+  };
 
   const dispatch = useDispatch();
 
@@ -70,10 +85,11 @@ const Cartpage: FC = () => {
     setErrorWindowOpened,
   } = actionCreators;
 
-  const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmitForm = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const makeTheOrder = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.post(`${API_URL}/order`, {
           name: nameValue,
           phone: phoneValue,
@@ -85,9 +101,11 @@ const Cartpage: FC = () => {
           dishes: orderedDishes,
           totalPrice,
         });
+        setIsLoading(false);
         dispatch(setSuccessfullWindowOpened(true));
         dispatch(getDefaultCart());
       } catch (error) {
+        setIsLoading(false);
         console.log(error);
         dispatch(setErrorWindowOpened(true));
       }
@@ -95,7 +113,7 @@ const Cartpage: FC = () => {
     makeTheOrder();
   };
 
-  const handleNameValue = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleNameValue = (e: ChangeEvent<HTMLInputElement>): void => {
     setNameValue(e.target.value);
     if (e.target.value.length === 0) {
       setNameError("Name can't be empty");
@@ -106,7 +124,7 @@ const Cartpage: FC = () => {
     }
   };
 
-  const handlePhoneValue = (e: ChangeEvent<HTMLInputElement>) => {
+  const handlePhoneValue = (e: ChangeEvent<HTMLInputElement>): void => {
     setPhoneValue(e.target.value);
     const re = /^(\+?995)?(79\d{7}|5\d{8})$/;
     if (e.target.value.length === 0) {
@@ -118,23 +136,27 @@ const Cartpage: FC = () => {
     }
   };
 
-  const handleCommentValue = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCommentValue = (e: ChangeEvent<HTMLInputElement>): void => {
     setCommentValue(e.target.value);
   };
 
-  const handleCityValue = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleCityValue = (e: ChangeEvent<HTMLSelectElement>): void => {
     setCityValue(e.target.value);
   };
 
-  const handleMethodOfPaymentValue = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleMethodOfPaymentValue = (
+    e: ChangeEvent<HTMLSelectElement>
+  ): void => {
     setMethodOfPaymentValue(e.target.value);
   };
 
-  const handleLocationProvenceValue = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleLocationProvenceValue = (
+    e: ChangeEvent<HTMLSelectElement>
+  ): void => {
     setLocationProvenceValue(e.target.value);
   };
 
-  const handleUserAdressValue = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUserAdressValue = (e: ChangeEvent<HTMLInputElement>): void => {
     setUserAdressValue(e.target.value);
     if (e.target.value.length === 0) {
       setUserAdressError("Your adress can't be empty");
@@ -163,7 +185,7 @@ const Cartpage: FC = () => {
       : setIsUserAdressFocused(false);
   };
 
-  const isDishesInCart = (allDishesId: any) => {
+  const isDishesInCart = (allDishesId: IAllIdDishes): boolean => {
     let dishesInCart = [];
     for (let key in allDishesId) {
       allDishesId[key] > 0 && dishesInCart.push(key);
@@ -221,7 +243,7 @@ const Cartpage: FC = () => {
         {isDishesInCart(allDishesId) ? (
           <>
             {allDishes.length &&
-              allDishes?.map((el: any, idx: number) => {
+              allDishes?.map((el: IDish) => {
                 if (allDishesId[el.id] !== 0) {
                   let priceOfTheDish =
                     Number(el.price.split(' ')[0]) * allDishesId[el.id];
@@ -358,7 +380,9 @@ const Cartpage: FC = () => {
                     value={methodOfPaymentValue}
                     onChange={handleMethodOfPaymentValue}
                   >
-                    <option>Bank card (BoG, TBC, Russian bank card)</option>
+                    <option>Bank of Georgia card</option>
+                    <option>TBC bank card</option>
+                    <option>Russian bank card</option>
                   </select>
                 </div>
                 <div className="input">
@@ -380,8 +404,21 @@ const Cartpage: FC = () => {
                   />
                 </div>
                 <button>
-                  Make the order
-                  <span>{`${totalPrice} ₾`}</span>
+                  {isLoading ? (
+                    <BeatLoader
+                      color={'#fff'}
+                      loading={isLoading}
+                      cssOverride={override}
+                      size={15}
+                      aria-label="Loading Spinner"
+                      data-testid="loader"
+                    />
+                  ) : (
+                    <>
+                      <p>Make the order</p>
+                      <span>{`${totalPrice} ₾`}</span>
+                    </>
+                  )}
                 </button>
               </div>
             </form>

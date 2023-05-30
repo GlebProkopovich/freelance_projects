@@ -13,6 +13,7 @@ import './Menupage.scss';
 const Menupage: FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [dataReceived, setDataReceived] = useState<boolean>(false);
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [pageQty, setPageQty] = useState<number>(0);
   const { dishUrl } = useParams<{ dishUrl: any }>();
@@ -20,15 +21,12 @@ const Menupage: FC = () => {
   const dishesData = useSelector(
     (state: IDishData) => state.dishesData.dishesAllInfo.dishes
   );
-
   const totalDishesQty = useSelector(
     (state: IDishData) => state.dishesData.dishesAllInfo.total
   );
-
   const limitDishesQty = useSelector(
     (state: IDishData) => state.dishesData.dishesAllInfo.limit
   );
-
   const searchValue = useSelector((state: ISearchValue) => state.search.value);
 
   const dispatch = useDispatch();
@@ -58,16 +56,29 @@ const Menupage: FC = () => {
   }, [dishUrl, page, searchValue]);
 
   useEffect(() => {
-    // Чтобы после того как мы перешли на 2 page на какой-то категории с разу перешли на другую категорию page возвращался
     setPage(1);
   }, [dishUrl]);
 
   useEffect(() => {
-    // делаем эти действия только после получения положительного ответа от сервера
     setPageQty(Math.ceil(totalDishesQty / limitDishesQty));
-    //   dispatch(getDefaultCart(dishesData));
     setDataReceived(false);
   }, [dataReceived]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.visualViewport) {
+        setIsSmallScreen(window.visualViewport.width <= 660);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <>
@@ -107,7 +118,7 @@ const Menupage: FC = () => {
                   onChange={(_, num) => {
                     setPage(num);
                   }}
-                  size="large"
+                  size={isSmallScreen ? 'small' : 'large'}
                   sx={{ fontSize: '50px' }}
                   renderItem={(item) => (
                     <PaginationItem

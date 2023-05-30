@@ -94,3 +94,54 @@
     }
   }
 }
+
+@media screen and (max-width: 600px) {
+  .registrationCompleted-container {
+    .registrationCompleted-subcontainer {
+      width: 260px;
+
+      h1 {
+        font-size: 35px;
+      }
+
+      h2 {
+        width: 210px;
+        font-size: 14px;
+      }
+
+      a {
+        font-size: 16px;
+      }
+
+      .close-btn {
+        left: 262px;
+        font-size: 30px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .registrationCompleted-container {
+    .registrationCompleted-subcontainer {
+      width: 210px;
+
+      h1 {
+        font-size: 30px;
+      }
+
+      h2 {
+        width: 160px;
+        font-size: 14px;
+      }
+
+      a {
+        font-size: 14px;
+      }
+
+      .close-btn {
+        left: 210px;
+      }
+    }
+  }
+}

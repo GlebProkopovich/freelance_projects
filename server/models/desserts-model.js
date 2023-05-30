@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const breakfastsSchema = new Schema({
+const dessertsSchema = new Schema({
   imgSrc: { type: String, required: true },
   altImg: { type: String, required: true },
   title: { type: String, required: true },
@@ -9,4 +9,4 @@ const breakfastsSchema = new Schema({
   headline: { type: String, required: true },
 });
 
-module.exports = model('breakfasts', breakfastsSchema);
+module.exports = model('desserts', dessertsSchema);

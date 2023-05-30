@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { IPostDish } from '../../types';
+import { IAllDishesId, IPostDish } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators } from '../../state';
 import './PostDish.scss';
@@ -8,11 +8,11 @@ const PostDish: FC<IPostDish> = ({ id, imgSrc, altImg, title, price }) => {
   const [isClickedOnThePrice, setIsClickedOnThePrice] =
     useState<boolean>(false);
 
+  const allDishesId = useSelector((state: IAllDishesId) => state.cart.dishes);
+
   const handleClickOnThePrice = (): void => {
     setIsClickedOnThePrice(!isClickedOnThePrice);
   };
-
-  const allDishesId = useSelector((state: any) => state.cart.dishes);
 
   const dispatch = useDispatch();
 
