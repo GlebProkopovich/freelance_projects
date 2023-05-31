@@ -18,6 +18,7 @@ import { BeatLoader } from 'react-spinners';
 import {
   IAllDishes,
   IAllDishesId,
+  IAllDishesLoader,
   IAllIdDishes,
   IDish,
   IErrorModal,
@@ -65,6 +66,9 @@ const Cartpage: FC = () => {
   const isErrorModalOpened = useSelector(
     (state: IErrorModal) => state.errorWindow.isOpened
   );
+  const isOpenedAllDishLoader = useSelector(
+    (state: IAllDishesLoader) => state.allDishesLoader.isOpened
+  );
 
   let totalPrice = 0;
 
@@ -72,8 +76,13 @@ const Cartpage: FC = () => {
 
   const API_URL = 'http://localhost:5000/api';
 
-  const override: CSSProperties = {
+  const overrideOrder: CSSProperties = {
     margin: '0 auto',
+  };
+
+  const overrideAllDishes: CSSProperties = {
+    width: '100px',
+    margin: '50px auto',
   };
 
   const dispatch = useDispatch();
@@ -90,7 +99,7 @@ const Cartpage: FC = () => {
     const makeTheOrder = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.post(`${API_URL}/order`, {
+        await axios.post(`${API_URL}/order`, {
           name: nameValue,
           phone: phoneValue,
           city: cityValue,
@@ -242,7 +251,16 @@ const Cartpage: FC = () => {
         </h4>
         {isDishesInCart(allDishesId) ? (
           <>
-            {allDishes.length &&
+            {isOpenedAllDishLoader ? (
+              <BeatLoader
+                color={'#bd0000f2'}
+                loading={isOpenedAllDishLoader}
+                cssOverride={overrideAllDishes}
+                size={15}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            ) : (
               allDishes?.map((el: IDish) => {
                 if (allDishesId[el.id] !== 0) {
                   let priceOfTheDish =
@@ -264,7 +282,9 @@ const Cartpage: FC = () => {
                     />
                   );
                 }
-              })}
+                return null;
+              })
+            )}
             <form onSubmit={handleSubmitForm}>
               <div className="inputs-container">
                 <div className="input">
@@ -408,7 +428,7 @@ const Cartpage: FC = () => {
                     <BeatLoader
                       color={'#fff'}
                       loading={isLoading}
-                      cssOverride={override}
+                      cssOverride={overrideOrder}
                       size={15}
                       aria-label="Loading Spinner"
                       data-testid="loader"

@@ -18,6 +18,11 @@ export const setLoadingOpened = (value: boolean) => ({
   payload: value,
 });
 
+export const setAllDishesLoadingChanged = (value: boolean) => ({
+  type: 'ALLDISHES_LOADED',
+  payload: value,
+});
+
 export const setRegistrationWindowCompleted = (value: boolean) => ({
   type: 'REGISTRATION_COMPLETED',
   payload: value,
@@ -119,7 +124,7 @@ export const logoutUser = (): any => {
   return async (dispatch: any) => {
     try {
       dispatch(setLoadingOpened(true));
-      const response = await AuthService.logout();
+      await AuthService.logout();
       dispatch(setLoadingOpened(false));
       dispatch(setAuthUser(false));
       localStorage.removeItem('token');
@@ -196,13 +201,16 @@ export const getDefaultCart = (): any => {
 export const getAllDishes = (): any => {
   return async (dispatch: any) => {
     try {
+      dispatch(setAllDishesLoadingChanged(true));
       const response = (await axios.get(`http://localhost:5000/api/alldishes`))
         .data.alldishes;
+      dispatch(setAllDishesLoadingChanged(false));
       dispatch({
         type: 'GET_ALL_DISHES',
         payload: response,
       });
     } catch (error: any) {
+      dispatch(setAllDishesLoadingChanged(false));
       dispatch({
         type: 'GET_DISHES_ERROR',
         payload: error.message,

@@ -205,3 +205,9 @@ export interface IRegistrationError {
     userInfo: IUser;
   };
 }
+
+export interface IAllDishesLoader {
+  allDishesLoader: {
+    isOpened: boolean;
+  };
+}

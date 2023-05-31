@@ -97,6 +97,7 @@
 
       .loginBtn {
         height: 50px;
+        min-width: 100px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -421,7 +422,7 @@
         height: 60px;
         width: 80%;
         display: flex;
-        align-items: end;
+        align-items: flex-end;
         font-size: 18px;
         color: #323232;
         border-bottom: 0.5px solid rgb(211, 211, 211);
@@ -449,7 +450,7 @@
     width: 80%;
     display: flex;
     justify-self: start;
-    align-items: end;
+    align-items: flex-end;
     position: relative;
     font-size: 18px;
     padding: 0 0 10px 10px;
@@ -484,7 +485,7 @@
     height: 70px;
     width: 80%;
     display: flex;
-    align-items: end;
+    align-items: flex-end;
     text-decoration: none;
     font-size: 18px;
     padding: 0 0 10px 10px;

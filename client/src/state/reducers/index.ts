@@ -12,6 +12,7 @@ import { isErrorWindowOpenedReducer } from './isErrorWindowOpened';
 import { isRegistrationCompletedReducer } from './isRegistrationCompleted';
 import { isLoadingOpenedReducer } from './isLoadingReducer';
 import { authReducer } from './authReducer';
+import { isLoadedAllDishesReducer } from './isLoadedAllDishesReducer';
 
 export const reducers = combineReducers({
   loginForm: isLoginOpenedReducer,
@@ -27,4 +28,5 @@ export const reducers = combineReducers({
   registrationCompletedWindow: isRegistrationCompletedReducer,
   loading: isLoadingOpenedReducer,
   authUser: authReducer,
+  allDishesLoader: isLoadedAllDishesReducer,
 });

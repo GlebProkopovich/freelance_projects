@@ -43,7 +43,7 @@ const Navbar: FC = () => {
   const dispatch = useDispatch();
 
   const override: CSSProperties = {
-    margin: '0 auto',
+    padding: '0',
   };
 
   const { setLoginOpened, logoutUser, setLoadingOpened } = actionCreators;
