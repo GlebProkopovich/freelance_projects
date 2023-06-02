@@ -34,7 +34,6 @@ const Cartpage: FC = () => {
   const [nameValue, setNameValue] = useState<string>('');
   const [phoneValue, setPhoneValue] = useState<string>('');
   const [commentValue, setCommentValue] = useState<string>('');
-  const navigate = useNavigate();
   const [cityValue, setCityValue] = useState<string>('Batumi');
   const [locationProvenceValue, setLocationProvenceValue] = useState<string>(
     '3rd quarter of Digomi, 2 (Didi Dighomi, Dighomi, Didube)'
@@ -84,6 +83,8 @@ const Cartpage: FC = () => {
     width: '100px',
     margin: '50px auto',
   };
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
